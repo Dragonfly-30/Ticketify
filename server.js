@@ -21,7 +21,7 @@ connectDB();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
-app.use(cors({ origin: "http://localhost:5000", credentials: true }));
+app.use(cors({ origin: `http://localhost:${PORT}`, credentials: true }));
 
 // Session Setup
 app.use(
@@ -42,7 +42,7 @@ passport.use(
     {
       clientID: process.env.SPOTIFY_CLIENT_ID,
       clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
-      callbackURL: "http://localhost:5000/auth/spotify/callback",
+      callbackURL: `http://localhost:${PORT}/auth/spotify/callback`,
     },
     async (accessToken, refreshToken, expires_in, profile, done) => {
       try {
@@ -176,7 +176,7 @@ app.get("/dashboard", (req, res) => {
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
-
+//-----------------------------------------------------------------------------
 // New code for Booking page
 
 // Make sure you have this in your server.js file
